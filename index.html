@@ -635,9 +635,6 @@
                     <button class="btn btn-whatsapp" onclick="openWhatsAppIntegration()">
                         📱 ADICIONAR POR WHATSAPP
                     </button>
-                    <button class="btn btn-success" onclick="processWhatsAppMessage()" style="margin-left: 10px;">
-                        🔄 Processar Mensagem WhatsApp
-                    </button>
                 </div>
 
             </div>
@@ -1173,8 +1170,8 @@
             // Escolher número para enviar
             const phoneNumber = prompt(
                 "Escolha para quem enviar:\n" +
-                "1 - Gabi (+55 19 99858-1058)\n" +
-                "2 - Você (+55 19 98290-9897)\n" +
+                "1 - Gabi (19 99858-1058)\n" +
+                "2 - Você (19 98290-9897)\n" +
                 "3 - Digite outro número\n\n" +
                 "Digite 1, 2 ou 3:",
                 "1"
@@ -1183,9 +1180,9 @@
             let targetNumber = "";
             
             if (phoneNumber === "1") {
-                targetNumber = "55199998581058";
+                targetNumber = "19998581058";
             } else if (phoneNumber === "2") {
-                targetNumber = "55199982909897";
+                targetNumber = "19982909897";
             } else if (phoneNumber === "3") {
                 const customNumber = prompt("Digite o número (apenas números):", "");
                 if (customNumber && customNumber.replace(/\D/g, '').length >= 10) {
@@ -1199,56 +1196,25 @@
                 return;
             }
             
+            // Adicionar código do país se não tiver
+            if (!targetNumber.startsWith('55')) {
+                targetNumber = '55' + targetNumber;
+            }
+            
             const whatsappUrl = `https://wa.me/${targetNumber}?text=${message}`;
             window.open(whatsappUrl, '_blank');
             
-            // Mostrar instruções
+            // Mostrar instruções simples
             setTimeout(() => {
                 alert(
                     "📱 WhatsApp aberto!\n\n" +
-                    "IMPORTANTE: Após enviar a mensagem:\n" +
-                    "1. Copie a mensagem que você enviou\n" +
-                    "2. Volte para esta página\n" +
-                    "3. Clique em '🔄 Processar Mensagem WhatsApp'\n" +
-                    "4. Cole a mensagem e confirme\n\n" +
+                    "Envie sua mensagem no WhatsApp e depois volte para esta página.\n\n" +
                     "Exemplo: 'Recebi 1000 do salário'"
                 );
             }, 1000);
         }
 
-        // Função para processar mensagem do WhatsApp
-        function processWhatsAppMessage() {
-            const message = prompt(
-                "📱 Cole aqui a mensagem que você enviou no WhatsApp:\n\n" +
-                "Exemplos:\n" +
-                "• 'Recebi 1000 do salário'\n" +
-                "• 'Gastei 50 reais na padaria'\n" +
-                "• 'Paguei 200 de aluguel'\n\n" +
-                "Cole sua mensagem:",
-                ""
-            );
-            
-            if (!message) {
-                alert("❌ Nenhuma mensagem foi inserida!");
-                return;
-            }
-            
-            console.log("Processando mensagem:", message);
-            const result = processNaturalMessage(message);
-            
-            if (result.success) {
-                showNotification(`✅ Transação adicionada com sucesso!\n\n📝 ${result.description}\n💰 ${result.type === 'income' ? '+' : '-'} R$ ${formatCurrency(result.amount)}\n\n🔄 Página atualizada automaticamente!`, 'success');
-                
-                // Atualizar a página para mostrar a nova transação
-                setTimeout(() => {
-                    updateBalance();
-                    updateTransactionsTable();
-                    updateMonthlySummary();
-                }, 1000);
-            } else {
-                showNotification(`❌ Erro: ${result.message}\n\n💡 Dica: Use frases como:\n• "Recebi 1000 do salário"\n• "Gastei 50 reais na padaria"`, 'error');
-            }
-        }
+
 
         // Função para processar mensagem natural
         function processNaturalMessage(message) {
