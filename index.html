@@ -1149,69 +1149,155 @@
         // Expor função para teste
         window.testWhatsAppBot = testMessageProcessing;
 
-        // Função para abrir integração WhatsApp
+        // Função para abrir simulador WhatsApp
         function openWhatsAppIntegration() {
-            const message = encodeURIComponent(
-                "💰 Cofrinho Virtual - Adicionar Transação\n\n" +
-                "Envie suas despesas e receitas de forma natural:\n\n" +
-                "📝 Exemplos:\n" +
-                "• Gastei 50 reais na padaria\n" +
-                "• Recebi 1000 do salário\n" +
-                "• Paguei 200 de aluguel\n" +
-                "• Comprei roupas por 150\n" +
-                "• Ganhei 500 de bônus\n\n" +
-                "O sistema identifica automaticamente:\n" +
-                "✅ Valor gasto/recebido\n" +
-                "✅ Descrição da transação\n" +
-                "✅ Tipo (receita/despesa)\n\n" +
-                "🚀 Envie sua mensagem agora!"
-            );
+            // Criar modal do simulador WhatsApp
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.8);
+                z-index: 1000;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            `;
             
-            // Escolher número para enviar
-            const phoneNumber = prompt(
-                "Escolha para quem enviar:\n" +
-                "1 - Gabi (19 99858-1058)\n" +
-                "2 - Você (19 98290-9897)\n" +
-                "3 - Digite outro número\n\n" +
-                "Digite 1, 2 ou 3:",
-                "1"
-            );
+            modal.innerHTML = `
+                <div style="
+                    background: white;
+                    border-radius: 20px;
+                    padding: 30px;
+                    max-width: 400px;
+                    width: 90%;
+                    max-height: 80vh;
+                    overflow-y: auto;
+                    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+                ">
+                    <div style="
+                        background: #25D366;
+                        color: white;
+                        padding: 15px;
+                        border-radius: 15px;
+                        margin-bottom: 20px;
+                        text-align: center;
+                        font-weight: bold;
+                    ">
+                        📱 Simulador WhatsApp - Cofrinho Virtual
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">
+                            💬 Digite sua mensagem:
+                        </label>
+                        <textarea id="whatsappMessage" placeholder="Ex: Recebi 1000 do salário" 
+                            style="
+                                width: 100%;
+                                padding: 15px;
+                                border: 2px solid #ddd;
+                                border-radius: 10px;
+                                font-size: 16px;
+                                min-height: 100px;
+                                resize: vertical;
+                            "
+                        ></textarea>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="margin: 0 0 10px 0; color: #333;">📝 Exemplos que funcionam:</h4>
+                        <div style="
+                            background: #f8f9fa;
+                            padding: 15px;
+                            border-radius: 10px;
+                            font-size: 14px;
+                            line-height: 1.5;
+                        ">
+                            <strong>Receitas:</strong><br>
+                            • Recebi 1000 do salário<br>
+                            • Ganhei 500 de bônus<br>
+                            • Recebi 2000 reais<br><br>
+                            
+                            <strong>Despesas:</strong><br>
+                            • Gastei 50 reais na padaria<br>
+                            • Paguei 200 de aluguel<br>
+                            • Comprei roupas por 150
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 10px;">
+                        <button onclick="processWhatsAppSimulator()" style="
+                            flex: 1;
+                            background: #25D366;
+                            color: white;
+                            border: none;
+                            padding: 15px;
+                            border-radius: 10px;
+                            font-size: 16px;
+                            font-weight: bold;
+                            cursor: pointer;
+                        ">
+                            ✅ Processar Mensagem
+                        </button>
+                        <button onclick="closeWhatsAppSimulator()" style="
+                            flex: 1;
+                            background: #dc3545;
+                            color: white;
+                            border: none;
+                            padding: 15px;
+                            border-radius: 10px;
+                            font-size: 16px;
+                            font-weight: bold;
+                            cursor: pointer;
+                        ">
+                            ❌ Cancelar
+                        </button>
+                    </div>
+                </div>
+            `;
             
-            let targetNumber = "";
+            document.body.appendChild(modal);
             
-            if (phoneNumber === "1") {
-                targetNumber = "19998581058";
-            } else if (phoneNumber === "2") {
-                targetNumber = "19982909897";
-            } else if (phoneNumber === "3") {
-                const customNumber = prompt("Digite o número (apenas números):", "");
-                if (customNumber && customNumber.replace(/\D/g, '').length >= 10) {
-                    targetNumber = customNumber.replace(/\D/g, '');
-                } else {
-                    alert("Número inválido!");
-                    return;
-                }
-            } else {
-                alert("Opção inválida!");
+            // Focar no textarea
+            setTimeout(() => {
+                document.getElementById('whatsappMessage').focus();
+            }, 100);
+        }
+        
+        // Função para processar mensagem do simulador
+        function processWhatsAppSimulator() {
+            const message = document.getElementById('whatsappMessage').value.trim();
+            
+            if (!message) {
+                alert('❌ Digite uma mensagem primeiro!');
                 return;
             }
             
-            // Adicionar código do país se não tiver
-            if (!targetNumber.startsWith('55')) {
-                targetNumber = '55' + targetNumber;
+            const result = processNaturalMessage(message);
+            
+            if (result.success) {
+                showNotification(`✅ Transação adicionada!\n\n📝 ${result.description}\n💰 ${result.type === 'income' ? '+' : '-'} R$ ${formatCurrency(result.amount)}`, 'success');
+                closeWhatsAppSimulator();
+                
+                // Atualizar a página
+                setTimeout(() => {
+                    updateBalance();
+                    updateTransactionsTable();
+                    updateMonthlySummary();
+                }, 500);
+            } else {
+                showNotification(`❌ ${result.message}`, 'error');
             }
-            
-            const whatsappUrl = `https://wa.me/${targetNumber}?text=${message}`;
-            window.open(whatsappUrl, '_blank');
-            
-            // Mostrar instruções simples
-            setTimeout(() => {
-                alert(
-                    "📱 WhatsApp aberto!\n\n" +
-                    "Envie sua mensagem no WhatsApp e depois volte para esta página.\n\n" +
-                    "Exemplo: 'Recebi 1000 do salário'"
-                );
-            }, 1000);
+        }
+        
+        // Função para fechar simulador
+        function closeWhatsAppSimulator() {
+            const modal = document.querySelector('div[style*="position: fixed"]');
+            if (modal) {
+                modal.remove();
+            }
         }
 
 
