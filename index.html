@@ -632,10 +632,14 @@
                     </div>
                 </div>
                 <div style="margin-top: 20px; text-align: center;">
-                    <button class="btn btn-whatsapp" onclick="openWhatsApp()">
-                        📱 Adicionar via WhatsApp
+                    <button class="btn btn-whatsapp" onclick="openWhatsAppIntegration()">
+                        📱 ADICIONAR POR WHATSAPP
+                    </button>
+                    <button class="btn btn-success" onclick="processWhatsAppMessage()" style="margin-left: 10px;">
+                        🔄 Processar Mensagem WhatsApp
                     </button>
                 </div>
+
             </div>
 
             <!-- Resumo Mensal -->
@@ -691,21 +695,7 @@
                 </table>
             </div>
 
-            <!-- WhatsApp Section -->
-            <div class="whatsapp-section">
-                <h2>📱 WhatsApp</h2>
-                <div class="whatsapp-info">
-                    <h3>Adicione valores diretamente pelo WhatsApp</h3>
-                    <p><strong>Como usar:</strong></p>
-                    <ul style="text-align: left; margin: 15px 0; padding-left: 20px;">
-                        <li>Clique no botão "Adicionar via WhatsApp"</li>
-                        <li>Digite seu número do WhatsApp quando solicitado</li>
-                        <li>Envie mensagens no formato: <strong>VALOR - DESCRIÇÃO - TIPO</strong></li>
-                        <li>Exemplos: "1000 - Salário - receita" ou "500 - Aluguel - despesa"</li>
-                    </ul>
-                    <p><strong>Tipos válidos:</strong> receita ou despesa</p>
-                </div>
-            </div>
+
         </div>
     </div>
 
@@ -717,47 +707,47 @@
 
         // Adicionar dados de agosto se não existirem
         if (transactions.length === 0) {
-            // Dados de Gabi - Agosto
+            // Dados de Gabi - Agosto 2025
             const gabiTransactions = [
                 // Receitas
-                { id: Date.now() + 1, description: "Salário Gabi", amount: 1954.94, type: "income", date: "2024-08-01T00:00:00.000Z", month: 7, year: 2024 },
-                { id: Date.now() + 2, description: "VT Gabi", amount: 350.00, type: "income", date: "2024-08-01T00:00:00.000Z", month: 7, year: 2024 },
+                { id: Date.now() + 1, description: "Salário Gabi", amount: 1954.94, type: "income", date: "2025-08-01T21:00:00.000Z", month: 7, year: 2025 },
+                { id: Date.now() + 2, description: "VT Gabi", amount: 350.00, type: "income", date: "2025-08-01T21:00:00.000Z", month: 7, year: 2025 },
                 
                 // Despesas Fixas Gabi
-                { id: Date.now() + 3, description: "Água Gabi", amount: 60.00, type: "expense", date: "2024-08-05T00:00:00.000Z", month: 7, year: 2024 },
-                { id: Date.now() + 4, description: "Luz Gabi", amount: 160.00, type: "expense", date: "2024-08-05T00:00:00.000Z", month: 7, year: 2024 },
-                { id: Date.now() + 5, description: "Terreiro Gabi", amount: 160.00, type: "expense", date: "2024-08-05T00:00:00.000Z", month: 7, year: 2024 },
-                { id: Date.now() + 6, description: "Vivo Gabi", amount: 105.00, type: "expense", date: "2024-08-05T00:00:00.000Z", month: 7, year: 2024 },
-                { id: Date.now() + 7, description: "Geladeira B Gabi", amount: 195.37, type: "expense", date: "2024-08-05T00:00:00.000Z", month: 7, year: 2024 },
-                { id: Date.now() + 8, description: "Apple Gabi", amount: 29.80, type: "expense", date: "2024-08-05T00:00:00.000Z", month: 7, year: 2024 },
-                { id: Date.now() + 9, description: "Vale Gabi", amount: 200.00, type: "expense", date: "2024-08-05T00:00:00.000Z", month: 7, year: 2024 },
-                { id: Date.now() + 10, description: "Tim Gabi", amount: 65.00, type: "expense", date: "2024-08-05T00:00:00.000Z", month: 7, year: 2024 },
-                { id: Date.now() + 11, description: "Gasolina Gabi", amount: 250.00, type: "expense", date: "2024-08-10T00:00:00.000Z", month: 7, year: 2024 },
+                { id: Date.now() + 3, description: "Água Gabi", amount: 60.00, type: "expense", date: "2025-08-05T21:00:00.000Z", month: 7, year: 2025 },
+                { id: Date.now() + 4, description: "Luz Gabi", amount: 160.00, type: "expense", date: "2025-08-05T21:00:00.000Z", month: 7, year: 2025 },
+                { id: Date.now() + 5, description: "Terreiro Gabi", amount: 160.00, type: "expense", date: "2025-08-05T21:00:00.000Z", month: 7, year: 2025 },
+                { id: Date.now() + 6, description: "Vivo Gabi", amount: 105.00, type: "expense", date: "2025-08-05T21:00:00.000Z", month: 7, year: 2025 },
+                { id: Date.now() + 7, description: "Geladeira B Gabi", amount: 195.37, type: "expense", date: "2025-08-05T21:00:00.000Z", month: 7, year: 2025 },
+                { id: Date.now() + 8, description: "Apple Gabi", amount: 29.80, type: "expense", date: "2025-08-05T21:00:00.000Z", month: 7, year: 2025 },
+                { id: Date.now() + 9, description: "Vale Gabi", amount: 200.00, type: "expense", date: "2025-08-05T21:00:00.000Z", month: 7, year: 2025 },
+                { id: Date.now() + 10, description: "Tim Gabi", amount: 65.00, type: "expense", date: "2025-08-05T21:00:00.000Z", month: 7, year: 2025 },
+                { id: Date.now() + 11, description: "Gasolina Gabi", amount: 250.00, type: "expense", date: "2025-08-10T21:00:00.000Z", month: 7, year: 2025 },
                 
                 // Despesas Variáveis Gabi
-                { id: Date.now() + 12, description: "Cartão Gabi", amount: 199.45, type: "expense", date: "2024-08-15T00:00:00.000Z", month: 7, year: 2024 },
-                { id: Date.now() + 13, description: "Celular Gabi", amount: 86.09, type: "expense", date: "2024-08-15T00:00:00.000Z", month: 7, year: 2024 },
-                { id: Date.now() + 14, description: "Faculdade Gabi", amount: 162.00, type: "expense", date: "2024-08-15T00:00:00.000Z", month: 7, year: 2024 },
-                { id: Date.now() + 15, description: "Guardar Gabi", amount: 100.00, type: "expense", date: "2024-08-15T00:00:00.000Z", month: 7, year: 2024 },
-                { id: Date.now() + 16, description: "Ração Gabi", amount: 210.00, type: "expense", date: "2024-08-20T00:00:00.000Z", month: 7, year: 2024 },
-                { id: Date.now() + 17, description: "Uber Ponto Gabi", amount: 60.00, type: "expense", date: "2024-08-20T00:00:00.000Z", month: 7, year: 2024 },
-                { id: Date.now() + 18, description: "Cartão Pneu Gabi", amount: 176.00, type: "expense", date: "2024-08-25T00:00:00.000Z", month: 7, year: 2024 },
+                { id: Date.now() + 12, description: "Cartão Gabi", amount: 199.45, type: "expense", date: "2025-08-14T21:00:00.000Z", month: 7, year: 2025 },
+                { id: Date.now() + 13, description: "Celular Gabi", amount: 86.09, type: "expense", date: "2025-08-14T21:00:00.000Z", month: 7, year: 2025 },
+                { id: Date.now() + 14, description: "Faculdade Gabi", amount: 162.00, type: "expense", date: "2025-08-14T21:00:00.000Z", month: 7, year: 2025 },
+                { id: Date.now() + 15, description: "Guardar Gabi", amount: 100.00, type: "expense", date: "2025-08-14T21:00:00.000Z", month: 7, year: 2025 },
+                { id: Date.now() + 16, description: "Ração Gabi", amount: 210.00, type: "expense", date: "2025-08-19T21:00:00.000Z", month: 7, year: 2025 },
+                { id: Date.now() + 17, description: "Uber Ponto Gabi", amount: 60.00, type: "expense", date: "2025-08-19T21:00:00.000Z", month: 7, year: 2025 },
+                { id: Date.now() + 18, description: "Cartão Pneu Gabi", amount: 176.00, type: "expense", date: "2025-08-24T21:00:00.000Z", month: 7, year: 2025 },
                 
-                // Dados de Duda - Agosto
+                // Dados de Duda - Agosto 2025
                 // Receitas
-                { id: Date.now() + 19, description: "Salário Duda", amount: 2200.00, type: "income", date: "2024-08-01T00:00:00.000Z", month: 7, year: 2024 },
-                { id: Date.now() + 20, description: "VT Duda", amount: 480.00, type: "income", date: "2024-08-01T00:00:00.000Z", month: 7, year: 2024 },
+                { id: Date.now() + 19, description: "Salário Duda", amount: 2200.00, type: "income", date: "2025-08-01T21:00:00.000Z", month: 7, year: 2025 },
+                { id: Date.now() + 20, description: "VT Duda", amount: 480.00, type: "income", date: "2025-08-01T21:00:00.000Z", month: 7, year: 2025 },
                 
                 // Despesas Fixas Duda
-                { id: Date.now() + 21, description: "Aluguel Duda", amount: 2251.71, type: "expense", date: "2024-08-05T00:00:00.000Z", month: 7, year: 2024 },
-                { id: Date.now() + 22, description: "Geladeira Itaú Duda", amount: 127.91, type: "expense", date: "2024-08-05T00:00:00.000Z", month: 7, year: 2024 },
+                { id: Date.now() + 21, description: "Aluguel Duda", amount: 2251.71, type: "expense", date: "2025-08-05T21:00:00.000Z", month: 7, year: 2025 },
+                { id: Date.now() + 22, description: "Geladeira Itaú Duda", amount: 127.91, type: "expense", date: "2025-08-05T21:00:00.000Z", month: 7, year: 2025 },
                 
                 // Despesas Variáveis Duda
-                { id: Date.now() + 23, description: "Mesa Jantar Duda", amount: 137.39, type: "expense", date: "2024-08-15T00:00:00.000Z", month: 7, year: 2024 },
-                { id: Date.now() + 24, description: "Apple Gmail Duda", amount: 9.90, type: "expense", date: "2024-08-15T00:00:00.000Z", month: 7, year: 2024 },
-                { id: Date.now() + 25, description: "Convênio Farmácia Duda", amount: 65.00, type: "expense", date: "2024-08-15T00:00:00.000Z", month: 7, year: 2024 },
-                { id: Date.now() + 26, description: "Café Manhã Trabalho Duda", amount: 15.00, type: "expense", date: "2024-08-20T00:00:00.000Z", month: 7, year: 2024 },
-                { id: Date.now() + 27, description: "Uber Dentista Duda", amount: 60.00, type: "expense", date: "2024-08-25T00:00:00.000Z", month: 7, year: 2024 }
+                { id: Date.now() + 23, description: "Mesa Jantar Duda", amount: 137.39, type: "expense", date: "2025-08-14T21:00:00.000Z", month: 7, year: 2025 },
+                { id: Date.now() + 24, description: "Apple Gmail Duda", amount: 9.90, type: "expense", date: "2025-08-14T21:00:00.000Z", month: 7, year: 2025 },
+                { id: Date.now() + 25, description: "Convênio Farmácia Duda", amount: 65.00, type: "expense", date: "2025-08-14T21:00:00.000Z", month: 7, year: 2025 },
+                { id: Date.now() + 26, description: "Café Manhã Trabalho Duda", amount: 15.00, type: "expense", date: "2025-08-19T21:00:00.000Z", month: 7, year: 2025 },
+                { id: Date.now() + 27, description: "Uber Dentista Duda", amount: 60.00, type: "expense", date: "2025-08-24T21:00:00.000Z", month: 7, year: 2025 }
             ];
             
             transactions = gabiTransactions;
@@ -962,26 +952,26 @@
         // Função para abrir WhatsApp
         function openWhatsApp() {
             const message = encodeURIComponent(
-                "💰 Cofrinho Virtual - Adicionar Transação\n\n" +
-                "Envie no formato:\n" +
-                "VALOR - DESCRIÇÃO - TIPO\n\n" +
-                "Exemplos:\n" +
-                "1000 - Salário - receita\n" +
-                "500 - Aluguel - despesa\n\n" +
-                "Tipos: receita ou despesa\n\n" +
-                "⚠️ IMPORTANTE: Substitua o número abaixo pelo seu número real!"
+                "�� Cofrinho Virtual - Bot Financeiro\n\n" +
+                "Olá! Sou o assistente do seu cofrinho virtual.\n\n" +
+                "Envie suas despesas e receitas de forma natural:\n\n" +
+                "📝 Exemplos de mensagens:\n" +
+                "• 'Gastei 50 reais na padaria hoje'\n" +
+                "• 'Recebi 1000 do salário'\n" +
+                "• 'Paguei 200 de aluguel'\n" +
+                "• 'Ganhei 500 de bônus'\n" +
+                "• 'Comprei roupas por 150'\n\n" +
+                "O bot irá identificar automaticamente:\n" +
+                "✅ Valor gasto/recebido\n" +
+                "✅ Descrição da transação\n" +
+                "✅ Tipo (receita/despesa)\n\n" +
+                "🚀 Comece agora mesmo!"
             );
             
-            // Usar um número de exemplo ou permitir que o usuário insira
-            const phoneNumber = prompt("Digite seu número do WhatsApp (apenas números):", "5511999999999");
-            
-            if (phoneNumber && phoneNumber.replace(/\D/g, '').length >= 10) {
-                const cleanNumber = phoneNumber.replace(/\D/g, '');
-                const whatsappUrl = `https://wa.me/${cleanNumber}?text=${message}`;
-                window.open(whatsappUrl, '_blank');
-            } else {
-                alert("Número inválido! Digite um número válido do WhatsApp.");
-            }
+            // Número do bot (você pode usar um número real do WhatsApp Business)
+            const botNumber = "5519999999999"; // Substitua pelo número real do seu bot
+            const whatsappUrl = `https://wa.me/${botNumber}?text=${message}`;
+            window.open(whatsappUrl, '_blank');
         }
 
         // Função para processar mensagem do WhatsApp (simulação)
@@ -1020,6 +1010,363 @@
             }
         }
 
+        // Função para processar mensagem natural do WhatsApp
+        function processNaturalMessage(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            // Padrões para identificar valores
+            const valuePatterns = [
+                /(\d+[.,]?\d*)\s*reais?/gi,
+                /(\d+[.,]?\d*)\s*r\$/gi,
+                /(\d+[.,]?\d*)\s*real/gi,
+                /gastei\s*(\d+[.,]?\d*)/gi,
+                /paguei\s*(\d+[.,]?\d*)/gi,
+                /comprei\s*por\s*(\d+[.,]?\d*)/gi,
+                /recebi\s*(\d+[.,]?\d*)/gi,
+                /ganhei\s*(\d+[.,]?\d*)/gi,
+                /(\d+[.,]?\d*)\s*na\s*\w+/gi,
+                /(\d+[.,]?\d*)\s*de\s*\w+/gi
+            ];
+
+            let amount = 0;
+            let description = '';
+            let type = 'expense';
+
+            // Extrair valor
+            for (let pattern of valuePatterns) {
+                const match = lowerMessage.match(pattern);
+                if (match) {
+                    amount = parseFloat(match[1].replace(',', '.'));
+                    break;
+                }
+            }
+
+            // Determinar tipo baseado nas palavras-chave
+            const expenseKeywords = ['gastei', 'paguei', 'comprei', 'gasolina', 'aluguel', 'luz', 'água', 'padaria', 'mercado', 'farmácia', 'uber', 'taxi'];
+            const incomeKeywords = ['recebi', 'ganhei', 'salário', 'bônus', 'pagamento', 'depósito'];
+
+            const hasExpenseKeyword = expenseKeywords.some(keyword => lowerMessage.includes(keyword));
+            const hasIncomeKeyword = incomeKeywords.some(keyword => lowerMessage.includes(keyword));
+
+            if (hasIncomeKeyword) {
+                type = 'income';
+            } else if (hasExpenseKeyword) {
+                type = 'expense';
+            }
+
+            // Criar descrição baseada na mensagem
+            description = message.replace(/\d+[.,]?\d*\s*(reais?|r\$|real)/gi, '').trim();
+            if (description.length > 50) {
+                description = description.substring(0, 50) + '...';
+            }
+
+            if (amount > 0) {
+                const transaction = {
+                    id: Date.now() + Math.random(),
+                    description: description,
+                    amount: amount,
+                    type: type,
+                    date: new Date().toISOString(),
+                    month: new Date().getMonth(),
+                    year: new Date().getFullYear(),
+                    source: 'whatsapp'
+                };
+
+                transactions.push(transaction);
+                saveTransactions();
+                updateBalance();
+                updateTransactionsTable();
+                updateMonthlySummary();
+                
+                return {
+                    success: true,
+                    message: `✅ Transação adicionada!\n${description}\n${type === 'income' ? '+' : '-'} R$ ${formatCurrency(amount)}`
+                };
+            }
+
+            return {
+                success: false,
+                message: '❌ Não consegui identificar um valor válido na mensagem.'
+            };
+        }
+
+        // Simular webhook do WhatsApp (para demonstração)
+        function simulateWhatsAppWebhook(message, sender) {
+            console.log(`Mensagem recebida de ${sender}: ${message}`);
+            
+            const result = processNaturalMessage(message);
+            
+            // Simular resposta do bot
+            setTimeout(() => {
+                if (result.success) {
+                    showNotification(result.message, 'success');
+                } else {
+                    showNotification(result.message, 'error');
+                }
+            }, 1000);
+        }
+
+        // Função para mostrar notificações
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <div style="
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'};
+                    color: white;
+                    padding: 15px 20px;
+                    border-radius: 10px;
+                    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+                    z-index: 1000;
+                    max-width: 300px;
+                    font-weight: 500;
+                ">
+                    ${message}
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
+
+        // Função para testar o processamento de mensagens
+        function testMessageProcessing() {
+            const testMessages = [
+                "Gastei 50 reais na padaria hoje",
+                "Recebi 1000 do salário",
+                "Paguei 200 de aluguel",
+                "Comprei roupas por 150 reais",
+                "Ganhei 500 de bônus"
+            ];
+            
+            const randomMessage = testMessages[Math.floor(Math.random() * testMessages.length)];
+            simulateWhatsAppWebhook(randomMessage, "Usuário Teste");
+        }
+
+        // Expor função para teste
+        window.testWhatsAppBot = testMessageProcessing;
+
+        // Função para abrir integração WhatsApp
+        function openWhatsAppIntegration() {
+            const message = encodeURIComponent(
+                "💰 Cofrinho Virtual - Adicionar Transação\n\n" +
+                "Envie suas despesas e receitas de forma natural:\n\n" +
+                "📝 Exemplos:\n" +
+                "• Gastei 50 reais na padaria\n" +
+                "• Recebi 1000 do salário\n" +
+                "• Paguei 200 de aluguel\n" +
+                "• Comprei roupas por 150\n" +
+                "• Ganhei 500 de bônus\n\n" +
+                "O sistema identifica automaticamente:\n" +
+                "✅ Valor gasto/recebido\n" +
+                "✅ Descrição da transação\n" +
+                "✅ Tipo (receita/despesa)\n\n" +
+                "🚀 Envie sua mensagem agora!"
+            );
+            
+            // Escolher número para enviar
+            const phoneNumber = prompt(
+                "Escolha para quem enviar:\n" +
+                "1 - Gabi (+55 19 99858-1058)\n" +
+                "2 - Você (+55 19 98290-9897)\n" +
+                "3 - Digite outro número\n\n" +
+                "Digite 1, 2 ou 3:",
+                "1"
+            );
+            
+            let targetNumber = "";
+            
+            if (phoneNumber === "1") {
+                targetNumber = "55199998581058";
+            } else if (phoneNumber === "2") {
+                targetNumber = "55199982909897";
+            } else if (phoneNumber === "3") {
+                const customNumber = prompt("Digite o número (apenas números):", "");
+                if (customNumber && customNumber.replace(/\D/g, '').length >= 10) {
+                    targetNumber = customNumber.replace(/\D/g, '');
+                } else {
+                    alert("Número inválido!");
+                    return;
+                }
+            } else {
+                alert("Opção inválida!");
+                return;
+            }
+            
+            const whatsappUrl = `https://wa.me/${targetNumber}?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+            
+            // Mostrar instruções
+            setTimeout(() => {
+                alert(
+                    "📱 WhatsApp aberto!\n\n" +
+                    "IMPORTANTE: Após enviar a mensagem:\n" +
+                    "1. Copie a mensagem que você enviou\n" +
+                    "2. Volte para esta página\n" +
+                    "3. Clique em '🔄 Processar Mensagem WhatsApp'\n" +
+                    "4. Cole a mensagem e confirme\n\n" +
+                    "Exemplo: 'Recebi 1000 do salário'"
+                );
+            }, 1000);
+        }
+
+        // Função para processar mensagem do WhatsApp
+        function processWhatsAppMessage() {
+            const message = prompt(
+                "📱 Cole aqui a mensagem que você enviou no WhatsApp:\n\n" +
+                "Exemplos:\n" +
+                "• 'Recebi 1000 do salário'\n" +
+                "• 'Gastei 50 reais na padaria'\n" +
+                "• 'Paguei 200 de aluguel'\n\n" +
+                "Cole sua mensagem:",
+                ""
+            );
+            
+            if (!message) {
+                alert("❌ Nenhuma mensagem foi inserida!");
+                return;
+            }
+            
+            console.log("Processando mensagem:", message);
+            const result = processNaturalMessage(message);
+            
+            if (result.success) {
+                showNotification(`✅ Transação adicionada com sucesso!\n\n📝 ${result.description}\n💰 ${result.type === 'income' ? '+' : '-'} R$ ${formatCurrency(result.amount)}\n\n🔄 Página atualizada automaticamente!`, 'success');
+                
+                // Atualizar a página para mostrar a nova transação
+                setTimeout(() => {
+                    updateBalance();
+                    updateTransactionsTable();
+                    updateMonthlySummary();
+                }, 1000);
+            } else {
+                showNotification(`❌ Erro: ${result.message}\n\n💡 Dica: Use frases como:\n• "Recebi 1000 do salário"\n• "Gastei 50 reais na padaria"`, 'error');
+            }
+        }
+
+        // Função para processar mensagem natural
+        function processNaturalMessage(message) {
+            const lowerMessage = message.toLowerCase();
+            console.log("Processando mensagem:", lowerMessage);
+            
+            // Padrões para identificar valores
+            const valuePatterns = [
+                /(\d+[.,]?\d*)\s*reais?/gi,
+                /(\d+[.,]?\d*)\s*r\$/gi,
+                /(\d+[.,]?\d*)\s*real/gi,
+                /gastei\s*(\d+[.,]?\d*)/gi,
+                /paguei\s*(\d+[.,]?\d*)/gi,
+                /comprei\s*por\s*(\d+[.,]?\d*)/gi,
+                /recebi\s*(\d+[.,]?\d*)/gi,
+                /ganhei\s*(\d+[.,]?\d*)/gi,
+                /(\d+[.,]?\d*)\s*na\s*\w+/gi,
+                /(\d+[.,]?\d*)\s*de\s*\w+/gi,
+                /(\d+[.,]?\d*)\s*do\s*\w+/gi,
+                /(\d+[.,]?\d*)\s*reais?\s*\w+/gi
+            ];
+
+            let amount = 0;
+            let description = '';
+            let type = 'expense';
+
+            // Extrair valor
+            for (let pattern of valuePatterns) {
+                const match = lowerMessage.match(pattern);
+                if (match) {
+                    amount = parseFloat(match[1].replace(',', '.'));
+                    console.log("Valor encontrado:", amount);
+                    break;
+                }
+            }
+
+            // Determinar tipo baseado nas palavras-chave
+            const expenseKeywords = ['gastei', 'paguei', 'comprei', 'gasolina', 'aluguel', 'luz', 'água', 'padaria', 'mercado', 'farmácia', 'uber', 'taxi'];
+            const incomeKeywords = ['recebi', 'ganhei', 'salário', 'bônus', 'pagamento', 'depósito'];
+
+            const hasExpenseKeyword = expenseKeywords.some(keyword => lowerMessage.includes(keyword));
+            const hasIncomeKeyword = incomeKeywords.some(keyword => lowerMessage.includes(keyword));
+
+            if (hasIncomeKeyword) {
+                type = 'income';
+                console.log("Tipo identificado: RECEITA");
+            } else if (hasExpenseKeyword) {
+                type = 'expense';
+                console.log("Tipo identificado: DESPESA");
+            } else {
+                console.log("Tipo padrão: DESPESA");
+            }
+
+            // Criar descrição baseada na mensagem
+            description = message.replace(/\d+[.,]?\d*\s*(reais?|r\$|real)/gi, '').trim();
+            if (description.length > 50) {
+                description = description.substring(0, 50) + '...';
+            }
+            
+            console.log("Descrição criada:", description);
+
+            if (amount > 0) {
+                const transaction = {
+                    id: Date.now() + Math.random(),
+                    description: description,
+                    amount: amount,
+                    type: type,
+                    date: new Date().toISOString(),
+                    month: new Date().getMonth(),
+                    year: new Date().getFullYear(),
+                    source: 'whatsapp'
+                };
+
+                console.log("Transação criada:", transaction);
+                transactions.push(transaction);
+                saveTransactions();
+                
+                return {
+                    success: true,
+                    message: `Transação adicionada com sucesso!`,
+                    description: description,
+                    amount: amount,
+                    type: type
+                };
+            }
+
+            return {
+                success: false,
+                message: 'Não foi possível identificar um valor válido na mensagem. Use frases como "Recebi 1000 do salário" ou "Gastei 50 reais na padaria".'
+            };
+        }
+
+        // Função para mostrar notificações
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 10px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+                z-index: 1000;
+                max-width: 300px;
+                font-weight: 500;
+                white-space: pre-line;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
+
         // Permitir adicionar transação com Enter
         document.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
@@ -1032,8 +1379,6 @@
             updateBalance();
             updateMonthlySummary();
         }, 60000);
-
-
     </script>
 </body>
 </html>
