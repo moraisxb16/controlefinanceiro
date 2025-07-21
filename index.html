@@ -635,9 +635,6 @@
                     <button class="btn btn-whatsapp" onclick="openWhatsApp()">
                         📱 Adicionar via WhatsApp
                     </button>
-                    <button class="btn btn-success" onclick="simulateWhatsApp()" style="margin-left: 10px;">
-                        🧪 Simular Mensagem WhatsApp
-                    </button>
                 </div>
             </div>
 
@@ -696,10 +693,17 @@
 
             <!-- WhatsApp Section -->
             <div class="whatsapp-section">
-                <h2>🤝 WhatsApp</h2>
+                <h2>📱 WhatsApp</h2>
                 <div class="whatsapp-info">
                     <h3>Adicione valores diretamente pelo WhatsApp</h3>
-                    <p>Envie uma mensagem com o formato "Valor - Descrição" para o número +55 11 99999-9999. Por exemplo: "R$ 100,00 - Salário".</p>
+                    <p><strong>Como usar:</strong></p>
+                    <ul style="text-align: left; margin: 15px 0; padding-left: 20px;">
+                        <li>Clique no botão "Adicionar via WhatsApp"</li>
+                        <li>Digite seu número do WhatsApp quando solicitado</li>
+                        <li>Envie mensagens no formato: <strong>VALOR - DESCRIÇÃO - TIPO</strong></li>
+                        <li>Exemplos: "1000 - Salário - receita" ou "500 - Aluguel - despesa"</li>
+                    </ul>
+                    <p><strong>Tipos válidos:</strong> receita ou despesa</p>
                 </div>
             </div>
         </div>
@@ -964,10 +968,20 @@
                 "Exemplos:\n" +
                 "1000 - Salário - receita\n" +
                 "500 - Aluguel - despesa\n\n" +
-                "Tipos: receita ou despesa"
+                "Tipos: receita ou despesa\n\n" +
+                "⚠️ IMPORTANTE: Substitua o número abaixo pelo seu número real!"
             );
-            const whatsappUrl = `https://wa.me/5511999999999?text=${message}`;
-            window.open(whatsappUrl, '_blank');
+            
+            // Usar um número de exemplo ou permitir que o usuário insira
+            const phoneNumber = prompt("Digite seu número do WhatsApp (apenas números):", "5511999999999");
+            
+            if (phoneNumber && phoneNumber.replace(/\D/g, '').length >= 10) {
+                const cleanNumber = phoneNumber.replace(/\D/g, '');
+                const whatsappUrl = `https://wa.me/${cleanNumber}?text=${message}`;
+                window.open(whatsappUrl, '_blank');
+            } else {
+                alert("Número inválido! Digite um número válido do WhatsApp.");
+            }
         }
 
         // Função para processar mensagem do WhatsApp (simulação)
@@ -1019,22 +1033,7 @@
             updateMonthlySummary();
         }, 60000);
 
-        // Simular recebimento de mensagem do WhatsApp (para demonstração)
-        function simulateWhatsAppMessage() {
-            const messages = [
-                "1000 - Salário Gabi - receita",
-                "500 - Aluguel - despesa",
-                "200 - Compras mercado - despesa"
-            ];
-            
-            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-            processWhatsAppMessage(randomMessage);
-        }
 
-        // Botão para simular mensagem do WhatsApp (apenas para demonstração)
-        window.simulateWhatsApp = function() {
-            simulateWhatsAppMessage();
-        };
     </script>
 </body>
 </html>
